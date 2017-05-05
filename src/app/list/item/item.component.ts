@@ -37,7 +37,13 @@ export class ItemComponent implements OnInit {
   }
 
   toggle(item: Item) {
-    this.store.dispatch({ type: TOGGLE_ITEM, payload: item });
+    this.store.dispatch({ 
+      type: TOGGLE_ITEM, 
+      payload: {
+        item:item, 
+        department: this.department
+      } 
+    });
   }
 
 }

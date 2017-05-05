@@ -66,7 +66,7 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
     case TOGGLE_ITEM: 
       if (state.has(action.payload.department)) {
         return copyState(state).set(action.payload.department, [...state.get(action.payload.department).map(item => {
-          if (item !== action.payload)  {
+          if (item !== action.payload.item)  {
             return item;
           }
           return new Item(item.name, !item.done);

@@ -1,2 +1,3 @@
-{{item.name}}
+<span [ngClass]="{'done': item.done}">{{item.name}}</span>
 <button type="button" (click)="remove(item)">Remove</button>
+<button type="button" (click)="toggle(item)">Toggle</button>
