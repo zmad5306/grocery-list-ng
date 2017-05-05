@@ -26,7 +26,7 @@ export function departmentReducer(state: Array<Department> = DEPARTMETNS, action
 		case ADD_DEPARTMENT:
       return [...state, action.payload];
     case REMOVE_DEPARTMENT: 
-      return state.filter(element => element !== action.payload);
+      return state.filter(dept => dept !== action.payload);
 		default:
 			return state;
 	}
