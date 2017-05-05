@@ -1,3 +1,7 @@
 export class Department {
-    constructor(private name: string) {}
+    constructor(public name: string, public selected: boolean = false) {}
+
+    compare(a: Department, b: Department): Number {
+        return 1;
+    }
 }

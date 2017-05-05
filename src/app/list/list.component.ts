@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { ADD_ITEM, CLEAR_LIST } from './../shared/list.service';
+import { ADD_ITEM, CLEAR_LIST, SELECT_DEPARTMENT } from './../shared/list.service';
 import { Item } from './../shared/item';
 import { Department } from './../shared/department';
 
@@ -18,8 +18,8 @@ interface AppState {
 export class ListComponent implements OnInit {
 
   list: Observable<Map<Department, Item[]>>;
+  theList: Array<Item> = new Array<Item>();
   department: Department;
-  calls: number = 0;
 
 	constructor(private store: Store<AppState>){
     this.list = store.select('list');
@@ -27,10 +27,12 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.list.subscribe((list: Map<Department, Item[]>) => {
-      this.calls++;
-      if (!this.department && list.size > 0) {
-        this.department = list.keys().next().value;
-      }
+      list.forEach((value: Item[], key: Department) => {
+        if(key.selected) {
+          this.department = key;
+          this.theList = value;
+        }
+      });
     });
   }
 
@@ -44,6 +46,7 @@ export class ListComponent implements OnInit {
 
   onDepartmentSelected(department: Department) {
     this.department = department;
+    this.store.dispatch({ type: SELECT_DEPARTMENT, payload: department });
   }
 
 }

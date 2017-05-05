@@ -5,14 +5,8 @@
   <input type="text" #itemName>
   <button type="button" (click)="add(itemName.value)">Add</button>
 </div>
-<ul *ngFor="let dept of list | async | mapValues">
-  {{dept | json}}
-  <!--<ng-template *ngIf="department.key === department">-->
-    <!--<li *ngFor="let item of dept.val">
-      <app-item [item]="item"></app-item>
-    </li>-->
-  <!--</ng-template>-->
+<ul>
+  <li *ngFor="let item of theList">
+    <app-item [item]="item"></app-item>
+  </li>
 </ul>
-{{department | json}}
-{{list | async | json}}
-{{calls}}

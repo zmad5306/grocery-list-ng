@@ -6,7 +6,7 @@ import { Department } from './department';
 import { Item } from './item';
 
 const DEPARTMENTS: Array<Department> = new Array<Department>(
-  new Department('Produce'),
+  new Department('Produce', true),
   new Department('Meat'),
   new Department('Frozen'),
   new Department('Baking'),
@@ -22,14 +22,15 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
   return daState;
 }
 
+//TODO remove this, its just for testing...
 (function() {
   DEPARTMENTS.forEach((department: Department) => LIST.set(department, new Array<Item>(
-    new Item('item1', false, department),
-    new Item('item2', false, department),
-    new Item('item3', false, department),
-    new Item('item4', false, department),
-    new Item('item5', false, department),
-    new Item('item6', false, department),
+    new Item(department.name + ' item1', false, department),
+    new Item(department.name + ' item2', false, department),
+    new Item(department.name + ' item3', false, department),
+    new Item(department.name + ' item4', false, department),
+    new Item(department.name + ' item5', false, department),
+    new Item(department.name + ' item6', false, department),
   )));
 })();
 
@@ -39,6 +40,7 @@ export const TOGGLE_ITEM = 'TOGGLE_ITEM';
 export const CLEAR_LIST = 'TOGGLE_ITEM';
 export const ADD_DEPARTMENT = 'ADD_DEPARTMENT';
 export const REMOVE_DEPARTMENT = 'REMOVE_DEPARTMENT';
+export const SELECT_DEPARTMENT = 'SELECT_DEPARTMENT';
 
 @Injectable()
 export class ListService {
@@ -84,6 +86,32 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
         return daState;
       }
       return state;
+
+    case SELECT_DEPARTMENT:
+      const daState: Map<Department, Array<Item>> = copyState(state);
+      let prevSelectedDept: Department;
+
+      //find previously selected and rebuild entry in map
+      //marking department unselected
+      daState.forEach((value: Item[], key: Department) => {
+        if (key.selected) {
+          prevSelectedDept = key;
+        }
+      });
+
+      if(prevSelectedDept) {
+        const items: Array<Item> = daState.get(prevSelectedDept);
+        daState.delete(prevSelectedDept);
+        daState.set(new Department(prevSelectedDept.name, false), items);  
+      }
+
+      //find new selected and rebuild entry in map
+      //marking new department selected
+      const items: Array<Item> = daState.get(action.payload);
+      daState.delete(action.payload);
+      daState.set(new Department(action.payload.name, true), items);
+
+      return daState;
 
 		default:
 			return state;
