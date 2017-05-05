@@ -1,7 +1,9 @@
-<input type="text" #deptName>
-<button type="button" (click)="add(deptName.value)">Add</button>
-<ul>
-  <li *ngFor="let department of list | async | mapValues">
-    <app-department [department]="department"></app-department>
-  </li>
-</ul>
+<div>
+  <input type="text" #deptName>
+  <button type="button" (click)="add(deptName.value)">Add</button>
+  <ul>
+    <li *ngFor="let department of list | async | mapValues">
+      <app-department [department]="department"></app-department>
+    </li>
+  </ul>
+</div>
