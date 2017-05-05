@@ -1,3 +1,5 @@
+//This ended up being kind of ugly :(
+  
 import { Injectable } from '@angular/core';
 
 import { ActionReducer, Action } from '@ngrx/store';
@@ -22,7 +24,7 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
   return daState;
 }
 
-//TODO remove this, its just for testing...
+//TODO remove this, its just for testing...//////////////////////////////////////////////////
 (function() {
   DEPARTMENTS.forEach((department: Department) => LIST.set(department, new Array<Item>(
     new Item(department.name + ' item1', false),
@@ -33,6 +35,7 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
     new Item(department.name + ' item6', false),
   )));
 })();
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
