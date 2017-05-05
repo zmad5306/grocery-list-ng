@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { ADD_DEPARTMENT } from './../shared/department.service';
+import { ADD_DEPARTMENT } from './../shared/list.service';
 import { Department } from '../shared/department';
+import { Item } from '../shared/item';
 
 interface AppState {
-  departments: Array<Department>;
+  list: Map<Department, Array<Item>>;
 }
 
 @Component({
@@ -16,10 +17,10 @@ interface AppState {
 })
 export class DepartmentsComponent implements OnInit {
 
-  departments: Observable<Array<Department>>;
+  list: Observable<Map<Department, Array<Item>>>;
 
  constructor(private store: Store<AppState>){
-		this.departments = store.select('department');
+		this.list = store.select('list');
 	}
 
   ngOnInit() {
@@ -28,7 +29,5 @@ export class DepartmentsComponent implements OnInit {
   add(name: string) {
     this.store.dispatch({ type: ADD_DEPARTMENT, payload: new Department(name) });
   }
-
-
 
 }

@@ -13,8 +13,8 @@ import { ItemComponent } from './list/item/item.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { appRoutes } from './app.routes';
 import { listReducer } from './shared/list.service';
-import { departmentReducer } from './shared/department.service';
 import { DepartmentComponent } from './departments/department/department.component';
+import { MapValuesPipe } from './shared/map-values.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { DepartmentComponent } from './departments/department/department.compone
     DepartmentSelectorComponent,
     ItemComponent,
     PageNotFoundComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    MapValuesPipe
   ],
   imports: [
     BrowserModule,
@@ -33,8 +34,7 @@ import { DepartmentComponent } from './departments/department/department.compone
     RouterModule,
     appRoutes,
     StoreModule.provideStore({ 
-      list: listReducer,
-      department: departmentReducer
+      list: listReducer
     })
   ],
   providers: [],

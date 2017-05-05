@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { REMOVE_ITEM, TOGGLE_ITEM } from './../../shared/list.service';
+
+import { Item } from './../../shared/item';
+import { Department } from './../../shared/department';
+
+interface AppState {
+  list: Map<Department, Item[]>;
+}
 
 @Component({
   selector: 'app-item',
@@ -7,9 +17,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>){}
 
   ngOnInit() {
+  }
+
+  remove(item: Item) {
+    this.store.dispatch({ type: REMOVE_ITEM, payload: item });
+  }
+
+  toggle(item: Item) {
+    this.store.dispatch({ type: TOGGLE_ITEM, payload: item });
   }
 
 }

@@ -2,11 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { REMOVE_DEPARTMENT } from './../../shared/department.service';
+import { REMOVE_DEPARTMENT } from './../../shared/list.service';
 import { Department } from './../../shared/department';
+import { Item } from './../../shared/item';
 
 interface AppState {
-  departments: Array<Department>;
+  list: Map<Department, Array<Item>>;
 }
 
 @Component({

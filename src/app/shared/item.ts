@@ -1,5 +1,5 @@
 import { Department } from './department';
 
 export class Item {
-    constructor(private name: string, private done: boolean, private department: Department) {}
+    constructor(public name: string, public done: boolean, public department: Department) {}
 }
