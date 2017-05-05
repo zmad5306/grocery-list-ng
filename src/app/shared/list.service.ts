@@ -5,20 +5,33 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { Department } from './department';
 import { Item } from './item';
 
-const LIST = new Map<Department, Array<Item>>([
-  [new Department('Produce'), new Array<Item>()],
-  [new Department('Dairy'), new Array<Item>()],
-  [new Department('Frozen'), new Array<Item>()],
-  [new Department('Cereal'), new Array<Item>()],
-  [new Department('Snacks'), new Array<Item>()],
-  [new Department('Meat'), new Array<Item>()],
-]);
+const DEPARTMENTS: Array<Department> = new Array<Department>(
+  new Department('Produce'),
+  new Department('Meat'),
+  new Department('Frozen'),
+  new Department('Baking'),
+  new Department('Dairy'),
+  new Department('Deli'),
+);
+
+const LIST: Map<Department, Array<Item>> = new Map<Department, Array<Item>>();
 
 function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
   const daState = new Map<Department, Array<Item>>();
   state.forEach((value: Item[], key: Department) => daState.set(key, [...value]));
   return daState;
 }
+
+(function() {
+  DEPARTMENTS.forEach((department: Department) => LIST.set(department, new Array<Item>(
+    new Item('item1', false, department),
+    new Item('item2', false, department),
+    new Item('item3', false, department),
+    new Item('item4', false, department),
+    new Item('item5', false, department),
+    new Item('item6', false, department),
+  )));
+})();
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
@@ -37,13 +50,13 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
 
 		case ADD_ITEM:
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.depatrment, [...state.get(action.payload.department), action.payload])
+        return copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload])
       }
       return state;
 
     case REMOVE_ITEM: 
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.depatrment, [...state.get(action.payload.department).filter(item => item !== action.payload)])
+        return copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload)])
       }
       return state;
 

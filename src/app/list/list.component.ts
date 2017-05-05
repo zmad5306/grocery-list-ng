@@ -18,20 +18,32 @@ interface AppState {
 export class ListComponent implements OnInit {
 
   list: Observable<Map<Department, Item[]>>;
+  department: Department;
+  calls: number = 0;
 
 	constructor(private store: Store<AppState>){
     this.list = store.select('list');
 	}
 
   ngOnInit() {
+    this.list.subscribe((list: Map<Department, Item[]>) => {
+      this.calls++;
+      if (!this.department && list.size > 0) {
+        this.department = list.keys().next().value;
+      }
+    });
   }
 
-  add(item: Item) {
-    this.store.dispatch({ type: ADD_ITEM, payload: item });
+  add(itemName: string) {
+    this.store.dispatch({ type: ADD_ITEM, payload: new Item(itemName, false, this.department) });
   }
 
   clear() {
     this.store.dispatch({ type: CLEAR_LIST });
+  }
+
+  onDepartmentSelected(department: Department) {
+    this.department = department;
   }
 
 }

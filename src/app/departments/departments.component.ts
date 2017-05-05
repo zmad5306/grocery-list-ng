@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { ADD_DEPARTMENT } from './../shared/list.service';
-import { Department } from '../shared/department';
-import { Item } from '../shared/item';
+import { Department } from './../shared/department';
+import { Item } from './../shared/item';
 
 interface AppState {
   list: Map<Department, Array<Item>>;
@@ -17,7 +17,7 @@ interface AppState {
 })
 export class DepartmentsComponent implements OnInit {
 
-  list: Observable<Map<Department, Array<Item>>>;
+ list: Observable<Map<Department, Array<Item>>>;
 
  constructor(private store: Store<AppState>){
 		this.list = store.select('list');

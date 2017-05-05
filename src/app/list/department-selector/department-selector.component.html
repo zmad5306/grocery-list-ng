@@ -1,3 +1,5 @@
-<p>
-  department-selector works!
-</p>
+<select [ngModel]="department" (ngModelChange)="select($event)">
+  <option *ngFor="let department of list | async | mapValues" [ngValue]="department.key" >
+    {{department?.key?.name}}
+  </option>
+</select>

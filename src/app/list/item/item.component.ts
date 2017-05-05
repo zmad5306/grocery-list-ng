@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { REMOVE_ITEM, TOGGLE_ITEM } from './../../shared/list.service';
@@ -16,6 +16,8 @@ interface AppState {
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
+
+  @Input() item: Item;
 
   constructor(private store: Store<AppState>){}
 
