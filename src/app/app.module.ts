@@ -3,15 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { DepartmentSelectorComponent } from './list/department-selector/department-selector.component';
 import { ItemComponent } from './list/item/item.component';
-import { DepartmentComponent } from './departments/department/department.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { appRoutes } from './app.routes';
+import { listReducer } from './shared/list.service';
+import { departmentReducer } from './shared/department.service';
+import { DepartmentComponent } from './departments/department/department.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +23,19 @@ import { appRoutes } from './app.routes';
     DepartmentsComponent,
     DepartmentSelectorComponent,
     ItemComponent,
-    DepartmentComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule,
-    appRoutes
+    appRoutes,
+    StoreModule.provideStore({ 
+      list: listReducer,
+      department: departmentReducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

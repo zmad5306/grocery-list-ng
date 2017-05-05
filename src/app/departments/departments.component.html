@@ -1,3 +1,7 @@
-<p>
-  departments works!
-</p>
+<input type="text" #deptName>
+<button type="button" (click)="add(deptName.value)">Add</button>
+<ul>
+  <li *ngFor="let department of departments | async">
+    <app-department [department]="department"></app-department>
+  </li>
+</ul>
