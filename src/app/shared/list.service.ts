@@ -14,23 +14,22 @@ const LIST = new Map<Department, Array<Item>>([
   [new Department('Meat'), new Array<Item>()],
 ]);
 
+function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
+  const daState = new Map<Department, Array<Item>>();
+  state.forEach((value: Item[], key: Department) => daState.set(key, [...value]));
+  return daState;
+}
+
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const TOGGLE_ITEM = 'TOGGLE_ITEM';
 export const CLEAR_LIST = 'TOGGLE_ITEM';
-
 export const ADD_DEPARTMENT = 'ADD_DEPARTMENT';
 export const REMOVE_DEPARTMENT = 'REMOVE_DEPARTMENT';
 
 @Injectable()
 export class ListService {
   constructor() { }
-}
-
-function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
-  const daState = new Map<Department, Array<Item>>();
-  state.forEach((value: Item[], key: Department) => daState.set(key, [...value]));
-  return daState;
 }
 
 export function listReducer(state: Map<Department, Array<Item>> = LIST, action: Action) {
