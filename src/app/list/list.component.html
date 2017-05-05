@@ -5,6 +5,10 @@
   <input type="text" #itemName>
   <button type="button" (click)="add(itemName.value)">Add</button>
 </div>
+<div>
+  <button type="button" (click)="clear()">Clear List</button>
+  <button type="button" (click)="clearDepartment()">Clear Department</button>
+</div>
 <ul>
   <li *ngFor="let item of theList">
     <app-item [item]="item" [department]="department"></app-item>

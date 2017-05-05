@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { ADD_ITEM, CLEAR_LIST, SELECT_DEPARTMENT } from './../shared/list.service';
+import { ADD_ITEM, CLEAR_LIST, SELECT_DEPARTMENT, CLEAR_DEPARTMENT } from './../shared/list.service';
 import { Item } from './../shared/item';
 import { Department } from './../shared/department';
 
@@ -48,6 +48,10 @@ export class ListComponent implements OnInit {
 
   clear() {
     this.store.dispatch({ type: CLEAR_LIST });
+  }
+
+  clearDepartment() {
+    this.store.dispatch({ type: CLEAR_DEPARTMENT, payload: this.department });
   }
 
   onDepartmentSelected(department: Department) {

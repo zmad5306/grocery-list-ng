@@ -37,10 +37,11 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const TOGGLE_ITEM = 'TOGGLE_ITEM';
-export const CLEAR_LIST = 'TOGGLE_ITEM';
+export const CLEAR_LIST = 'CLEAR_LIST';
 export const ADD_DEPARTMENT = 'ADD_DEPARTMENT';
 export const REMOVE_DEPARTMENT = 'REMOVE_DEPARTMENT';
 export const SELECT_DEPARTMENT = 'SELECT_DEPARTMENT';
+export const CLEAR_DEPARTMENT = 'CLEAR_DEPARTMENT';
 
 @Injectable()
 export class ListService {
@@ -75,7 +76,11 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
       return state;
 
     case CLEAR_LIST:
-      return copyState(state).forEach(value => value.splice(0));
+      const daState2 = copyState(state);
+      const keys: Array<Department> = new Array<Department>();
+      daState2.forEach((value: Item[], key: Department) => keys.push(key));
+      keys.forEach((value: Department) => daState2.set(value, new Array<Item>()));
+      return daState2;
 
     case ADD_DEPARTMENT:
       return copyState(state).set(action.payload, new Array<Item>());
@@ -113,6 +118,9 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
       daState.set(new Department(action.payload.name, true), items);
 
       return daState;
+
+    case CLEAR_DEPARTMENT:
+      return copyState(state).set(action.payload, new Array<Item>());
 
 		default:
 			return state;
