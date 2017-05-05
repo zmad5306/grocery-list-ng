@@ -17,13 +17,7 @@ export function departmentReducer(state: Array<Department> = [new Department('Pr
 		case ADD_DEPARTMENT:
       return [...state, action.payload];
     case REMOVE_DEPARTMENT: 
-      var index = state.indexOf(action.payload);
-      if (index > -1) {
-         let depts = [...state];
-         depts.splice(index, 1);
-         return depts;
-      }
-      return state;
+      return state.filter(element => element !== action.payload);
 		default:
 			return state;
 	}
