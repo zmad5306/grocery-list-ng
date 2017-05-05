@@ -25,12 +25,12 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
 //TODO remove this, its just for testing...
 (function() {
   DEPARTMENTS.forEach((department: Department) => LIST.set(department, new Array<Item>(
-    new Item(department.name + ' item1', false, department),
-    new Item(department.name + ' item2', false, department),
-    new Item(department.name + ' item3', false, department),
-    new Item(department.name + ' item4', false, department),
-    new Item(department.name + ' item5', false, department),
-    new Item(department.name + ' item6', false, department),
+    new Item(department.name + ' item1', false),
+    new Item(department.name + ' item2', false),
+    new Item(department.name + ' item3', false),
+    new Item(department.name + ' item4', false),
+    new Item(department.name + ' item5', false),
+    new Item(department.name + ' item6', false),
   )));
 })();
 
@@ -52,13 +52,14 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
 
 		case ADD_ITEM:
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload])
+        return copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload.item])
       }
       return state;
 
     case REMOVE_ITEM: 
+      console.log(REMOVE_ITEM, action.payload.item, action.payload.department);
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload)])
+        return copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload.item)])
       }
       return state;
 
@@ -68,7 +69,7 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
           if (item !== action.payload)  {
             return item;
           }
-          return new Item(item.name, !item.done, item.department);
+          return new Item(item.name, !item.done);
         })]);
       }
       return state;

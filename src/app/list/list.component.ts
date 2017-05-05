@@ -37,7 +37,13 @@ export class ListComponent implements OnInit {
   }
 
   add(itemName: string) {
-    this.store.dispatch({ type: ADD_ITEM, payload: new Item(itemName, false, this.department) });
+    this.store.dispatch({ 
+      type: ADD_ITEM, 
+      payload: {
+        item: new Item(itemName, false), 
+        department: this.department
+      } 
+    });
   }
 
   clear() {
