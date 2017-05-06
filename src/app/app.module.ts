@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
@@ -35,7 +36,10 @@ import { MapValuesPipe } from './shared/map-values.pipe';
     appRoutes,
     StoreModule.provideStore({ 
       list: listReducer
-    })
+    }),
+    // StoreDevtoolsModule.instrumentOnlyWithExtension({
+    //   maxAge: 20
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]
