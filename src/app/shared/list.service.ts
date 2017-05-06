@@ -8,19 +8,37 @@ import { Department } from './department';
 import { Item } from './item';
 
 const DEPARTMENTS: Array<Department> = new Array<Department>(
-  new Department('Produce', true),
+  new Department('Produce'),
   new Department('Meat'),
   new Department('Frozen'),
-  new Department('Baking'),
+  new Department('Baking', true),
   new Department('Dairy'),
   new Department('Deli'),
 );
 
-const LIST: Map<Department, Array<Item>> = new Map<Department, Array<Item>>();
+let LIST: Map<Department, Array<Item>> = new Map<Department, Array<Item>>();
 
 function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
   const daState = new Map<Department, Array<Item>>();
   state.forEach((value: Item[], key: Department) => daState.set(key, [...value]));
+  return daState;
+}
+
+function sortState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
+  let depts: Array<Department> = new Array<Department>();
+  state.forEach((value: Item[], key: Department) => depts.push(key));
+
+  depts.sort((a, b) => {
+    if(a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+  });
+
+  const daState = new Map<Department, Array<Item>>();
+  depts.forEach((value: Department) => {
+    daState.set(value, state.get(value));
+  });
+
   return daState;
 }
 
@@ -34,6 +52,7 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
     new Item(department.name + ' item5', false),
     new Item(department.name + ' item6', false),
   )));
+  LIST = sortState(LIST);
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -56,25 +75,25 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
 
 		case ADD_ITEM:
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload.item])
+        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload.item]));
       }
       return state;
 
     case REMOVE_ITEM: 
       console.log(REMOVE_ITEM, action.payload.item, action.payload.department);
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload.item)])
+        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload.item)]));
       }
       return state;
 
     case TOGGLE_ITEM: 
       if (state.has(action.payload.department)) {
-        return copyState(state).set(action.payload.department, [...state.get(action.payload.department).map(item => {
+        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department).map(item => {
           if (item !== action.payload.item)  {
             return item;
           }
           return new Item(item.name, !item.done);
-        })]);
+        })]));
       }
       return state;
 
@@ -83,16 +102,16 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
       const keys: Array<Department> = new Array<Department>();
       daState2.forEach((value: Item[], key: Department) => keys.push(key));
       keys.forEach((value: Department) => daState2.set(value, new Array<Item>()));
-      return daState2;
+      return sortState(daState2);
 
     case ADD_DEPARTMENT:
-      return copyState(state).set(action.payload, new Array<Item>());
+      return sortState(copyState(state).set(action.payload, new Array<Item>()));
 
     case REMOVE_DEPARTMENT:
       if (state.has(action.payload)) {
         const daState = copyState(state);
         daState.delete(action.payload);
-        return daState;
+        return sortState(daState);
       }
       return state;
 
@@ -120,10 +139,10 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
       daState.delete(action.payload);
       daState.set(new Department(action.payload.name, true), items);
 
-      return daState;
+      return sortState(daState);
 
     case CLEAR_DEPARTMENT:
-      return copyState(state).set(action.payload, new Array<Item>());
+      return sortState(copyState(state).set(action.payload, new Array<Item>()));
 
 		default:
 			return state;
