@@ -26,7 +26,6 @@ export class ItemComponent implements OnInit {
   }
 
   remove(item: Item) {
-    console.log('removing', item);
     this.store.dispatch({ 
       type: REMOVE_ITEM
       , payload: {

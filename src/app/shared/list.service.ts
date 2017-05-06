@@ -1,5 +1,3 @@
-//This ended up being kind of ugly :(
-  
 import { Injectable } from '@angular/core';
 
 import { ActionReducer, Action } from '@ngrx/store';
@@ -19,9 +17,9 @@ const DEPARTMENTS: Array<Department> = new Array<Department>(
 let LIST: Map<Department, Array<Item>> = new Map<Department, Array<Item>>();
 
 function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
-  const daState = new Map<Department, Array<Item>>();
-  state.forEach((value: Item[], key: Department) => daState.set(key, [...value]));
-  return daState;
+  const toState = new Map<Department, Array<Item>>();
+  state.forEach((value: Item[], key: Department) => toState.set(key, [...value]));
+  return toState;
 }
 
 function sortState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
@@ -34,15 +32,94 @@ function sortState(state: Map<Department, Array<Item>>): Map<Department, Array<I
     return 0;
   });
 
-  const daState = new Map<Department, Array<Item>>();
+  const toState = new Map<Department, Array<Item>>();
   depts.forEach((value: Department) => {
-    daState.set(value, state.get(value));
+    toState.set(value, state.get(value));
   });
 
-  return daState;
+  return toState;
 }
 
-//TODO remove this, its just for testing...//////////////////////////////////////////////////
+function addItem(state: Map<Department, Array<Item>>, {department, item}): Map<Department, Array<Item>> {
+  if (state.has(department)) {
+    return sortState(copyState(state).set(department, [...state.get(department), item]));
+  }
+  return state;
+}
+
+function removeItem(state: Map<Department, Array<Item>>, {department, item}): Map<Department, Array<Item>> {
+  if (state.has(department)) {
+    return sortState(copyState(state).set(department, [...state.get(department).filter(titem => item !== titem)]));
+  }
+  return state;
+}
+
+function toggleItem(state: Map<Department, Array<Item>>, {department, item}): Map<Department, Array<Item>> {
+  if (state.has(department)) {
+    return sortState(copyState(state).set(department, [...state.get(department).map(titem => {
+      if (item !== titem)  {
+        return titem;
+      }
+      return new Item(item.name, !item.done);
+    })]));
+  }
+  return state;
+}
+
+function clearList(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
+  const toState = copyState(state);
+  const keys: Array<Department> = new Array<Department>();
+  toState.forEach((value: Item[], key: Department) => keys.push(key));
+  keys.forEach((value: Department) => toState.set(value, new Array<Item>()));
+  return sortState(toState);
+}
+
+function removeDepartment(state: Map<Department, Array<Item>>, department): Map<Department, Array<Item>> {
+  if (state.has(department)) {
+    const toState = copyState(state);
+    toState.delete(department);
+    return sortState(toState);
+  }
+  return state;
+}
+
+function addDepartment(state: Map<Department, Array<Item>>, department): Map<Department, Array<Item>> {
+  return sortState(copyState(state).set(department, new Array<Item>()));
+}
+
+function selectDepartment(state: Map<Department, Array<Item>>, department): Map<Department, Array<Item>> {
+  const toState: Map<Department, Array<Item>> = copyState(state);
+    let prevSelectedDept: Department;
+
+    //find previously selected and rebuild entry in map
+    //marking department unselected
+    toState.forEach((value: Item[], key: Department) => {
+      if (key.selected) {
+        prevSelectedDept = key;
+      }
+    });
+
+    if(prevSelectedDept) {
+      const items: Array<Item> = toState.get(prevSelectedDept);
+      toState.delete(prevSelectedDept);
+      toState.set(new Department(prevSelectedDept.name, false), items);  
+    }
+
+    //find new selected and rebuild entry in map
+    //marking new department selected
+    const items: Array<Item> = toState.get(department);
+    toState.delete(department);
+    toState.set(new Department(department.name, true), items);
+
+    return sortState(toState);
+}
+
+function clearDepartment(state: Map<Department, Array<Item>>, department): Map<Department, Array<Item>> {
+  return sortState(copyState(state).set(department, new Array<Item>()));
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//                      TODO remove this, its just for testing...
 (function() {
   DEPARTMENTS.forEach((department: Department) => LIST.set(department, new Array<Item>(
     new Item(department.name + ' item1', false),
@@ -74,75 +151,28 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
 	switch (action.type) {
 
 		case ADD_ITEM:
-      if (state.has(action.payload.department)) {
-        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department), action.payload.item]));
-      }
-      return state;
+      return addItem(state, action.payload);
 
     case REMOVE_ITEM: 
-      console.log(REMOVE_ITEM, action.payload.item, action.payload.department);
-      if (state.has(action.payload.department)) {
-        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department).filter(item => item !== action.payload.item)]));
-      }
-      return state;
+      return removeItem(state, action.payload);
 
     case TOGGLE_ITEM: 
-      if (state.has(action.payload.department)) {
-        return sortState(copyState(state).set(action.payload.department, [...state.get(action.payload.department).map(item => {
-          if (item !== action.payload.item)  {
-            return item;
-          }
-          return new Item(item.name, !item.done);
-        })]));
-      }
-      return state;
+      return toggleItem(state, action.payload);
 
     case CLEAR_LIST:
-      const daState2 = copyState(state);
-      const keys: Array<Department> = new Array<Department>();
-      daState2.forEach((value: Item[], key: Department) => keys.push(key));
-      keys.forEach((value: Department) => daState2.set(value, new Array<Item>()));
-      return sortState(daState2);
+      return clearList(state);
 
     case ADD_DEPARTMENT:
-      return sortState(copyState(state).set(action.payload, new Array<Item>()));
-
+      return addDepartment(state, action.payload);
+      
     case REMOVE_DEPARTMENT:
-      if (state.has(action.payload)) {
-        const daState = copyState(state);
-        daState.delete(action.payload);
-        return sortState(daState);
-      }
-      return state;
+      return removeDepartment(state, action.payload);
 
     case SELECT_DEPARTMENT:
-      const daState: Map<Department, Array<Item>> = copyState(state);
-      let prevSelectedDept: Department;
-
-      //find previously selected and rebuild entry in map
-      //marking department unselected
-      daState.forEach((value: Item[], key: Department) => {
-        if (key.selected) {
-          prevSelectedDept = key;
-        }
-      });
-
-      if(prevSelectedDept) {
-        const items: Array<Item> = daState.get(prevSelectedDept);
-        daState.delete(prevSelectedDept);
-        daState.set(new Department(prevSelectedDept.name, false), items);  
-      }
-
-      //find new selected and rebuild entry in map
-      //marking new department selected
-      const items: Array<Item> = daState.get(action.payload);
-      daState.delete(action.payload);
-      daState.set(new Department(action.payload.name, true), items);
-
-      return sortState(daState);
+      return selectDepartment(state, action.payload);
 
     case CLEAR_DEPARTMENT:
-      return sortState(copyState(state).set(action.payload, new Array<Item>()));
+      return clearDepartment(state, action.payload);
 
 		default:
 			return state;
