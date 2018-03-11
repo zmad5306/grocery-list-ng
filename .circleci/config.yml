@@ -35,3 +35,10 @@ jobs:
         
       # run tests!
       - run: yarn test
+
+      #deploy to docker hub
+      deployment:
+        dockerhub:
+          branch: master
+            commands:
+              - $DOCKER_HUB_TRIGGER
