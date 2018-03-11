@@ -10,4 +10,4 @@ RUN cd /src; npm run build
 
 EXPOSE 4200
 
-CMD cd /src/dist && npm run start-docker
+CMD cd /src/dist; npm run start-docker
