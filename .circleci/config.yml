@@ -35,14 +35,7 @@ jobs:
         
       # run tests!
       - run: yarn test
-
-  deploy:
-    steps:
-      -checkout
-      run:
-        name: Deploy Docker Hub
-        - command: $DOCKER_HUB_TRIGGER
-
+      
 workflows:
   version: 2
   build-and-deploy
