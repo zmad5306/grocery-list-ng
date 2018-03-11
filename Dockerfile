@@ -4,8 +4,8 @@ MAINTAINER zachary.maddox@gmail.com
 
 COPY . /src
 
-RUN cd /src && npm install && npm run build
+RUN cd /src && npm install && npm run build && npm install -g http-server
 
 EXPOSE 4200
 
-CMD cd /src/dist && npm run start-docker
+CMD npm run start-docker
