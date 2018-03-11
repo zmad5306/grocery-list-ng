@@ -1,7 +1,5 @@
 FROM node:carbon
 
-WORKDIR /src/
-
 MAINTAINER zachary.maddox@gmail.com
 
 COPY . /src
