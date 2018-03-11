@@ -9,7 +9,9 @@ RUN cd /src; npm install
 RUN cd /src; npm run build
 
 RUN ls
+RUN ls/src
+RUN ls/rsc/dist
 
 EXPOSE 4200
 
-CMD cd /src/dist; npm run start-docker
+CMD cd /src/dist && npm run start-docker
