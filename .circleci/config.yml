@@ -38,6 +38,6 @@ jobs:
 
       #deploy to docker hub
       - deployment:
-        dockerhub:
-          branch: master
-          commands: $DOCKER_HUB_TRIGGER
+          dockerhub:
+            branch: master
+            commands: $DOCKER_HUB_TRIGGER
