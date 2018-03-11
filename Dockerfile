@@ -14,4 +14,4 @@ RUN cd /src/dist; ls
 
 EXPOSE 4200
 
-CMD cd /src/dist && npm run start-docker
+CMD npm run start-docker
