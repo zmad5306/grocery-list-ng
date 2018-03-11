@@ -6,6 +6,6 @@ COPY . /src
 
 RUN cd /src && npm install && npm run build
 
-EXPOSE 4200
+FROM httpd:2.4
 
-CMD /src/node_modules/http-server/bin/http-server -a 0.0.0.0 -p 4200 /src/dist
+COPY --from=0 /src/dist/ /usr/local/apache2/htdocs/
