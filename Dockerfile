@@ -1,8 +1,9 @@
-FROM centos:centos6
+FROM ubuntu:latest
 
 MAINTAINER zachary.maddox@gmail.com
 
-RUN yum install -y npm
+RUN apt-get update
+RUN apt-get install nodejs
 
 EXPOSE 4200
 
