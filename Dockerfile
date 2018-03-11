@@ -6,6 +6,8 @@ RUN ls
 
 COPY . /src
 
+RUN ls && ls /src
+
 RUN cd /src && npm install && npm run build --output-path ../dist
 
 EXPOSE 4200
