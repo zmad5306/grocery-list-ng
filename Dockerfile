@@ -2,6 +2,8 @@ FROM node:carbon
 
 MAINTAINER zachary.maddox@gmail.com
 
+RUN ls
+
 COPY . /src
 
 RUN cd /src && npm install && npm run build --output-path ../dist
