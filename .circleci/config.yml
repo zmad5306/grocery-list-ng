@@ -37,8 +37,8 @@ jobs:
       - run: yarn test
 
     #deploy to docker hub
-    deployment:
-      dockerhub:
-        branch: master
-        commands: 
-          - $DOCKER_HUB_TRIGGER
+    deploy:
+      machine:
+        enabled: true
+        steps:
+          - run: $DOCKER_HUB_TRIGGER
