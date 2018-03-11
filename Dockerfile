@@ -8,4 +8,4 @@ RUN cd /src; npm install
 
 EXPOSE 4200
 
-CMD cd /src && npm run start
+CMD cd /src && npm run start-docker
