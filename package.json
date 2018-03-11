@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-docker": "http-server -a 0.0.0.0 -p 4200 /src/dist",
+    "start-docker": "http-server -a 0.0.0.0 -p 4200",
     "build": "ng build",
     "test": "ng test --watch false --single-run true",
     "lint": "ng lint",
