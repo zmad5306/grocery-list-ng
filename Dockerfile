@@ -9,8 +9,8 @@ RUN cd /src; npm install
 RUN cd /src; npm run build
 
 RUN ls
-RUN ls /src
-RUN ls /src/dist
+RUN cd /src; ls
+RUN cd /src/dist; ls
 
 EXPOSE 4200
 
