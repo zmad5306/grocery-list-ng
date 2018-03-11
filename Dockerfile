@@ -1,9 +1,6 @@
-FROM ubuntu:latest
+FROM node:carbon
 
 MAINTAINER zachary.maddox@gmail.com
-
-RUN apt-get update
-RUN apt-get install nodejs
 
 EXPOSE 4200
 
