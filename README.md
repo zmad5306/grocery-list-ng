@@ -2,6 +2,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.2.
 
+## Notes
+
+run with docker:
+    docker pull zmad5306/grocery-list-ng:latest
+    docker run -d -p 4200:4200 zmad5306/grocery-list-ng:latest
+
+
+circleci build:
+    https://circleci.com/gh/zmad5306/grocery-list-ng
+
+docker hub build:
+    https://hub.docker.com/r/zmad5306/grocery-list-ng/
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
