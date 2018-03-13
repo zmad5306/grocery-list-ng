@@ -34,9 +34,9 @@ import { MapValuesPipe } from './shared/map-values.pipe';
     HttpModule,
     RouterModule,
     appRoutes,
-    StoreModule.provideStore({ 
-      list: listReducer
-    }),
+    StoreModule.provideStore(
+      { list: listReducer }
+    ),
     // StoreDevtoolsModule.instrumentOnlyWithExtension({
     //   maxAge: 20
     // })

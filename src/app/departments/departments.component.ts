@@ -19,9 +19,9 @@ export class DepartmentsComponent implements OnInit {
 
  list: Observable<Map<Department, Array<Item>>>;
 
- constructor(private store: Store<AppState>){
-		this.list = store.select('list');
-	}
+ constructor(private store: Store<AppState>) {
+    this.list = store.select('list');
+  }
 
   ngOnInit() {
   }

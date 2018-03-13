@@ -20,29 +20,20 @@ export class ItemComponent implements OnInit {
   @Input() item: Item;
   @Input() department: Department;
 
-  constructor(private store: Store<AppState>){}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
   }
 
   remove(item: Item) {
-    this.store.dispatch({ 
+    this.store.dispatch({
       type: REMOVE_ITEM
-      , payload: {
-        item: item, 
-        department: this.department 
-      }
+      , payload: { item: item, department: this.department }
     });
   }
 
   toggle(item: Item) {
-    this.store.dispatch({ 
-      type: TOGGLE_ITEM, 
-      payload: {
-        item:item, 
-        department: this.department
-      } 
-    });
+    this.store.dispatch({ type: TOGGLE_ITEM, payload: { item: item, department: this.department } });
   }
 
 }

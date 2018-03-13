@@ -23,13 +23,17 @@ function copyState(state: Map<Department, Array<Item>>): Map<Department, Array<I
 }
 
 function sortState(state: Map<Department, Array<Item>>): Map<Department, Array<Item>> {
-  let depts: Array<Department> = new Array<Department>();
+  const depts: Array<Department> = new Array<Department>();
   state.forEach((value: Item[], key: Department) => depts.push(key));
 
   depts.sort((a, b) => {
-    if(a.name < b.name) return -1;
-    if(a.name > b.name) return 1;
-    return 0;
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    } else {
+      return 0;
+    }
   });
 
   const toState = new Map<Department, Array<Item>>();
@@ -91,22 +95,22 @@ function selectDepartment(state: Map<Department, Array<Item>>, department): Map<
   const toState: Map<Department, Array<Item>> = copyState(state);
     let prevSelectedDept: Department;
 
-    //find previously selected and rebuild entry in map
-    //marking department unselected
+    // find previously selected and rebuild entry in map
+    // marking department unselected
     toState.forEach((value: Item[], key: Department) => {
       if (key.selected) {
         prevSelectedDept = key;
       }
     });
 
-    if(prevSelectedDept) {
+    if (prevSelectedDept) {
       const items: Array<Item> = toState.get(prevSelectedDept);
       toState.delete(prevSelectedDept);
-      toState.set(new Department(prevSelectedDept.name, false), items);  
+      toState.set(new Department(prevSelectedDept.name, false), items);
     }
 
-    //find new selected and rebuild entry in map
-    //marking new department selected
+    // find new selected and rebuild entry in map
+    // marking new department selected
     const items: Array<Item> = toState.get(department);
     toState.delete(department);
     toState.set(new Department(department.name, true), items);
@@ -148,15 +152,15 @@ export class ListService {
 }
 
 export function listReducer(state: Map<Department, Array<Item>> = LIST, action: Action) {
-	switch (action.type) {
+  switch (action.type) {
 
-		case ADD_ITEM:
+    case ADD_ITEM:
       return addItem(state, action.payload);
 
-    case REMOVE_ITEM: 
+    case REMOVE_ITEM:
       return removeItem(state, action.payload);
 
-    case TOGGLE_ITEM: 
+    case TOGGLE_ITEM:
       return toggleItem(state, action.payload);
 
     case CLEAR_LIST:
@@ -164,7 +168,7 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
 
     case ADD_DEPARTMENT:
       return addDepartment(state, action.payload);
-      
+
     case REMOVE_DEPARTMENT:
       return removeDepartment(state, action.payload);
 
@@ -174,8 +178,8 @@ export function listReducer(state: Map<Department, Array<Item>> = LIST, action: 
     case CLEAR_DEPARTMENT:
       return clearDepartment(state, action.payload);
 
-		default:
-			return state;
+    default:
+      return state;
 
-	}
+  }
 }
