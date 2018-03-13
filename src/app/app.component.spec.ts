@@ -10,6 +10,6 @@ import { LocationStrategy } from '@angular/common';
 describe('AppComponent', () => {
   it('should create the app', async(() => {
     expect(1).toBe(1);
-    expect(true).toBeTruthy();
+    expect(false).toBeTruthy();
   }));
 });
