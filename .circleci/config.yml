@@ -40,7 +40,6 @@ jobs:
       enabled: true
     working_directory: ~/repo
     steps:
-      - checkout
       - run: $DOCKER_HUB_TRIGGER
 
 workflows:
