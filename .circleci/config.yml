@@ -53,10 +53,6 @@ jobs:
           path: ~/repo/dist/dist.zip
           destination: dist.zip
 
-      - store_artifacts:
-          path: ~/repo/dist
-          destination: dist
-
       #run lint
       - run: yarn lint
 
