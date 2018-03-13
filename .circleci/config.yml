@@ -36,6 +36,13 @@ jobs:
       # run tests!
       - run: yarn test
 
+      - store_test_results:
+          path: reports
+
+      - store_artifacts:
+          path: ~/repo/coverage
+          destination: coverage
+
       # run build
       - run: yarn build
 
@@ -45,6 +52,7 @@ jobs:
 
       #run lint
       - run: yarn lint
+
   deploy:
     machine:
       enabled: true
