@@ -15,16 +15,12 @@ interface AppState {
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.css']
 })
-export class DepartmentComponent implements OnInit {
+export class DepartmentComponent {
 
-  @Input() department: Department
+  @Input() department: Department;
 
-  constructor(private store: Store<AppState>){
-	}
+  constructor(private store: Store<AppState>) { }
 
-  ngOnInit() {
-  }
-  
   remove(department: Department) {
     this.store.dispatch({ type: REMOVE_DEPARTMENT, payload: department });
   }

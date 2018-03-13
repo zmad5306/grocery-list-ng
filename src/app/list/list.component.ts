@@ -21,14 +21,14 @@ export class ListComponent implements OnInit {
   theList: Array<Item> = new Array<Item>();
   department: Department;
 
-	constructor(private store: Store<AppState>){
+  constructor(private store: Store<AppState>) {
     this.list = store.select('list');
-	}
+  }
 
   ngOnInit() {
     this.list.subscribe((list: Map<Department, Item[]>) => {
       list.forEach((value: Item[], key: Department) => {
-        if(key.selected) {
+        if (key.selected) {
           this.department = key;
           this.theList = value;
         }
@@ -37,12 +37,12 @@ export class ListComponent implements OnInit {
   }
 
   add(itemName: string) {
-    this.store.dispatch({ 
-      type: ADD_ITEM, 
+    this.store.dispatch({
+      type: ADD_ITEM,
       payload: {
-        item: new Item(itemName, false), 
+        item: new Item(itemName, false),
         department: this.department
-      } 
+      }
     });
   }
 

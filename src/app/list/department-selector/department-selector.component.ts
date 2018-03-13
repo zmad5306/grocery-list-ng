@@ -20,9 +20,9 @@ export class DepartmentSelectorComponent implements OnInit {
   @Input() department: Department;
   @Output() departmentSelected = new EventEmitter();
 
-  constructor(private store: Store<AppState>){
-		this.list = store.select('list');
-	}
+  constructor(private store: Store<AppState>) {
+    this.list = store.select('list');
+  }
 
   ngOnInit() {
   }
