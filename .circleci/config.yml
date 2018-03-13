@@ -46,6 +46,13 @@ jobs:
       # run build
       - run: yarn build
 
+      # package zip
+      - run: yarn package
+      
+      - store_artifacts:
+          path: ~/repo/dist/dist.zip
+          destination: dist.zip
+
       - store_artifacts:
           path: ~/repo/dist
           destination: dist
