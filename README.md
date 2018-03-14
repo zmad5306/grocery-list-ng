@@ -73,3 +73,5 @@ Run with `http://minikube:30683` (have to get service to get port)
 `kubectl rollout status deployment grocery-list-deployment`
 
 `kubectl rollout history deployment grocery-list-deployment`
+
+`kubectl rollout undo deployment grocery-list-deployment --to-revision=1`
