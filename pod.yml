@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grocery-list-pod
+  labels:
+    zone: dev
+    version: v1
+spec:
+  containers:
+  - name: grocery-list-ctr
+    image: zmad5306/grocery-list-ng:latest
+    ports:
+    - containerPort: 80
