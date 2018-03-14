@@ -21,21 +21,34 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ### Pods
 
 `kubectl create -f pod.yml`
+
 `kubectl get pods --all-namespaces`
+
 `kubectl describe pods`
+
 `kubectl get pods/grocery-list-pod`
+
 `kubectl delete pods grocery-list-pod`
+
 
 ### Pods with yml
 `kubectl create -f rc.yml`
+
 `kubectl get rc`
+
 `kubectl describe rc`
+
 `kubectl apply -f rc.yml`
+
 
 ### Services
 `kubectl expose rc grocery-list-rc --name=grocery-list-svc --target-port=8080 --type=NodePort`
+
 `kubectl describe svc grocery-list-svc`
+
 `kubectl create -f svc.yml`
+
 `kubectl get svc`
+
 
 Run with http://minikube:30683 (have to get service to get port)
