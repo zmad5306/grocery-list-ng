@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grocery-list-deployment
+  labels:
+    app: grocery-list
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: grocery-list
+  template:
+    metadata:
+      labels:
+        app: grocery-list
+    spec:
+      containers:
+      - name: grocery-list
+        image: zmad5306/grocery-list-ng:latest
+        ports:
+        - containerPort: 80

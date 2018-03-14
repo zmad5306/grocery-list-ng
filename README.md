@@ -1,6 +1,7 @@
 # GroceryListNg
 
 ## Run with Docker
+
 `docker pull zmad5306/grocery-list-ng:latest`
 
 `docker run -d --name grocery-list-ng -p 8080:80 zmad5306/grocery-list-ng:latest`
@@ -8,9 +9,11 @@
 ## Builds
 
 ### Circle CI
+
 https://circleci.com/gh/zmad5306/grocery-list-ng
 
 ### Docker Hub
+
 https://hub.docker.com/r/zmad5306/grocery-list-ng/
 
 ## Development server
@@ -18,6 +21,7 @@ https://hub.docker.com/r/zmad5306/grocery-list-ng/
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Kubernetes
+
 ### Pods
 
 `kubectl create -f pod.yml`
@@ -30,8 +34,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 `kubectl delete pods grocery-list-pod`
 
-
 ### Pods with yml
+
 `kubectl create -f rc.yml`
 
 `kubectl get rc`
@@ -40,8 +44,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 `kubectl apply -f rc.yml`
 
-
 ### Services
+
 `kubectl expose rc grocery-list-rc --name=grocery-list-svc --target-port=8080 --type=NodePort`
 
 `kubectl describe svc grocery-list-svc`
@@ -50,5 +54,24 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 `kubectl get svc`
 
+Run with `http://minikube:30683` (have to get service to get port)
 
-Run with http://minikube:30683 (have to get service to get port)
+### Deployments
+
+`kubectl create -f kubernetes/deploy.yml`
+
+`kubectl get deployment`
+
+`kubectl describe deployment grocery-list-deployment`
+
+`kubectl get rs`
+
+`kubectl describe rs`
+
+`kubectl apply -f kubernetes/deploy.yml --record`
+
+`kubectl rollout status deployment grocery-list-deployment`
+
+`kubectl rollout history deployment grocery-list-deployment`
+
+`kubectl rollout undo deployment grocery-list-deployment --to-revision=1`
