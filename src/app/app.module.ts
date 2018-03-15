@@ -17,7 +17,8 @@ import { listReducer } from './shared/list.service';
 import { DepartmentComponent } from './departments/department/department.component';
 import { MapValuesPipe } from './shared/map-values.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatToolbarModule, MatMenuModule, MatButtonModule, MatTabsModule, MatInputModule, MatCheckboxModule, MatListModule} from '@angular/material';
+import {MatToolbarModule, MatMenuModule, MatButtonModule, MatTabsModule, MatInputModule,
+  MatCheckboxModule, MatListModule} from '@angular/material';
 
 @NgModule({
   declarations: [

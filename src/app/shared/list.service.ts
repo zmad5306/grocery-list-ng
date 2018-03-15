@@ -104,9 +104,9 @@ function selectDepartment(state: Map<Department, Array<Item>>, department): Map<
     });
 
     if (prevSelectedDept) {
-      const items: Array<Item> = toState.get(prevSelectedDept);
+      const prevItems: Array<Item> = toState.get(prevSelectedDept);
       toState.delete(prevSelectedDept);
-      toState.set(new Department(prevSelectedDept.name, false), items);
+      toState.set(new Department(prevSelectedDept.name, false), prevItems);
     }
 
     // find new selected and rebuild entry in map
