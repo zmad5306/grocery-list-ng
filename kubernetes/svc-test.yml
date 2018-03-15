@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: grocery-list-svc
+  name: grocery-list-svc-test
   labels:
     app: grocery-list
 spec:
@@ -11,4 +11,4 @@ spec:
     protocol: TCP
   selector:
     app: grocery-list
-    version: "1.0.0"
+    version: "1.1.0"
