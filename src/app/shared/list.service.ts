@@ -146,12 +146,16 @@ export const REMOVE_DEPARTMENT = 'REMOVE_DEPARTMENT';
 export const SELECT_DEPARTMENT = 'SELECT_DEPARTMENT';
 export const CLEAR_DEPARTMENT = 'CLEAR_DEPARTMENT';
 
+export class ListAction implements Action {
+  constructor (public type: any, public payload: any) {}
+}
+
 @Injectable()
 export class ListService {
   constructor() { }
 }
 
-export function listReducer(state: Map<Department, Array<Item>> = LIST, action: Action) {
+export function listReducer(state: Map<Department, Array<Item>> = LIST, action: ListAction) {
   switch (action.type) {
 
     case ADD_ITEM:

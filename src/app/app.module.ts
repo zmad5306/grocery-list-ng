@@ -16,6 +16,8 @@ import { appRoutes } from './app.routes';
 import { listReducer } from './shared/list.service';
 import { DepartmentComponent } from './departments/department/department.component';
 import { MapValuesPipe } from './shared/map-values.pipe';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatToolbarModule, MatMenuModule, MatButtonModule, MatTabsModule, MatInputModule, MatCheckboxModule, MatListModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,21 @@ import { MapValuesPipe } from './shared/map-values.pipe';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     RouterModule,
     appRoutes,
-    StoreModule.provideStore(
+    StoreModule.forRoot(
       { list: listReducer }
     ),
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatListModule,
     // StoreDevtoolsModule.instrumentOnlyWithExtension({
     //   maxAge: 20
     // })
