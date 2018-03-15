@@ -2,8 +2,12 @@
   <app-department-selector (departmentSelected)="onDepartmentSelected($event)" [department]="department"></app-department-selector>
 </div>
 <div>
-  <input type="text" #itemName>
-  <button type="button" (click)="add(itemName.value)">Add</button>
+  <mat-form-field>
+    <input matInput placeholder="Add new item ..." type="text" #itemName>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" type="button" (click)="add(itemName.value)">
+    <i class="material-icons">add</i>
+  </button>
 </div>
 <div>
   <button type="button" (click)="clear()">Clear List</button>
