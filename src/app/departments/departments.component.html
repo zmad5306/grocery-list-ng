@@ -5,8 +5,8 @@
   <i class="material-icons">add</i>
 </button>
 
-<ul>
-  <li *ngFor="let department of list | async | mapValues">
+<mat-list>
+  <mat-list-item *ngFor="let department of list | async | mapValues">
     <app-department [department]="department"></app-department>
-  </li>
-</ul>
+  </mat-list-item>
+</mat-list>
