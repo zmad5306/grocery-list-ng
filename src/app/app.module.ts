@@ -18,7 +18,7 @@ import { DepartmentComponent } from './departments/department/department.compone
 import { MapValuesPipe } from './shared/map-values.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule, MatMenuModule, MatButtonModule, MatTabsModule, MatInputModule,
-  MatCheckboxModule, MatListModule} from '@angular/material';
+  MatCheckboxModule, MatListModule, MatSelectModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -48,6 +48,7 @@ import {MatToolbarModule, MatMenuModule, MatButtonModule, MatTabsModule, MatInpu
     MatInputModule,
     MatCheckboxModule,
     MatListModule,
+    MatSelectModule,
     // StoreDevtoolsModule.instrumentOnlyWithExtension({
     //   maxAge: 20
     // })

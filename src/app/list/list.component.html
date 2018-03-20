@@ -1,6 +1,5 @@
-<div>
-  <app-department-selector (departmentSelected)="onDepartmentSelected($event)" [department]="department"></app-department-selector>
-</div>
+<app-department-selector (departmentSelected)="onDepartmentSelected($event)" [department]="department"></app-department-selector>
+
 <div>
   <mat-form-field>
     <input matInput placeholder="Add new item ..." type="text" #itemName>
@@ -9,6 +8,7 @@
     <i class="material-icons">add</i>
   </button>
 </div>
+
 <div>
   <button type="button" (click)="clear()">Clear List</button>
   <button type="button" (click)="clearDepartment()">Clear Department</button>
