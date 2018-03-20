@@ -13,8 +13,9 @@
   <button type="button" (click)="clear()">Clear List</button>
   <button type="button" (click)="clearDepartment()">Clear Department</button>
 </div>
-<ul>
-  <li *ngFor="let item of theList">
+
+<mat-list>
+  <mat-list-item *ngFor="let item of theList">
     <app-item [item]="item" [department]="department"></app-item>
-  </li>
-</ul>
+  </mat-list-item>
+</mat-list>
