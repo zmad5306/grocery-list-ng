@@ -1,16 +1,21 @@
+<app-department-selector (departmentSelected)="onDepartmentSelected($event)" [department]="department"></app-department-selector>
+
 <div>
-  <app-department-selector (departmentSelected)="onDepartmentSelected($event)" [department]="department"></app-department-selector>
+  <mat-form-field>
+    <input matInput placeholder="Add new item ..." type="text" #itemName>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" type="button" (click)="add(itemName.value)">
+    <i class="material-icons">add</i>
+  </button>
 </div>
+
 <div>
-  <input type="text" #itemName>
-  <button type="button" (click)="add(itemName.value)">Add</button>
+  <button type="button" (click)="clear()" mat-raised-button color="warn">Clear List</button>
+  <button type="button" (click)="clearDepartment()" mat-raised-button color="warn">Clear Department</button>
 </div>
-<div>
-  <button type="button" (click)="clear()">Clear List</button>
-  <button type="button" (click)="clearDepartment()">Clear Department</button>
-</div>
-<ul>
-  <li *ngFor="let item of theList">
+
+<mat-list>
+  <mat-list-item *ngFor="let item of theList">
     <app-item [item]="item" [department]="department"></app-item>
-  </li>
-</ul>
+  </mat-list-item>
+</mat-list>

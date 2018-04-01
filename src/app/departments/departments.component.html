@@ -1,9 +1,12 @@
-<div>
-  <input type="text" #deptName>
-  <button type="button" (click)="add(deptName.value)">Add</button>
-  <ul>
-    <li *ngFor="let department of list | async | mapValues">
-      <app-department [department]="department"></app-department>
-    </li>
-  </ul>
-</div>
+<mat-form-field>
+  <input matInput placeholder="Add new department ..." type="text" #deptName>
+</mat-form-field>
+<button mat-mini-fab color="primary" type="button" (click)="add(deptName.value)">
+  <i class="material-icons">add</i>
+</button>
+
+<mat-list>
+  <mat-list-item *ngFor="let department of list | async | mapValues">
+    <app-department [department]="department"></app-department>
+  </mat-list-item>
+</mat-list>

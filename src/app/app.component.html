@@ -1,5 +1,12 @@
 <h1>Grocery List</h1>
-<h2>{{title}}</h2>
-<a routerLink="/list">List</a>
-<a routerLink="/departments">Departments</a>
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link [routerLink]="'/list'" routerLinkActive #rlal="routerLinkActive" [active]="rlal.isActive">
+        List
+    </a>
+    <a mat-tab-link [routerLink]="'/departments'" routerLinkActive #rlad="routerLinkActive" [active]="rlad.isActive">
+        Departments
+    </a>
+</nav>
+
 <router-outlet></router-outlet>

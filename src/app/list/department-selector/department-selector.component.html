@@ -1,5 +1,7 @@
-<select [ngModel]="department" (ngModelChange)="select($event)">
-  <option *ngFor="let department of list | async | mapValues" [ngValue]="department.key" >
-    {{department?.key?.name}}
-  </option>
-</select>
+<mat-form-field>
+  <mat-select placeholder="Department"  [ngModel]="department" (ngModelChange)="select($event)">
+    <mat-option *ngFor="let department of list | async | mapValues" [value]="department.key">
+      {{department?.key?.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
