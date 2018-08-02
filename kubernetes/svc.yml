@@ -11,4 +11,3 @@ spec:
     protocol: TCP
   selector:
     app: grocery-list
-    version: "1.0.0"
